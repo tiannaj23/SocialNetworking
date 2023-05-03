@@ -42,7 +42,7 @@ const userController = {
       },
       // update a user
       updateUser(req, res) {
-        User.findOneAndUpdate({ _id: req.params.id }, {$set: req.body,}, { new: true, runValidators:true, })
+        User.findOneAndUpdate({ _id: req.params.id }, {$set: req.body,}, { runValidators: true, new: true, })
         .then((dbUserData) => {
           if (!dbUserData) {
             res.status(404).json({message: "User not found."});
@@ -78,7 +78,7 @@ const userController = {
         User.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { friends: req.params.friendId } }, { new: true})
           .then((dbUserData) => {
             if (!dbUserData) {
-              return res.status(404).json({ message: 'User not found.' });
+              return res.status(404).json({ message: "User not found." });
             }
             res.json(dbUserData);
           })
@@ -93,7 +93,7 @@ const userController = {
             _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true })
             .then((dbUserData) => {
               if (!dbUserData) {
-                return res.status(404).json({ message: 'User not found.' });
+                return res.status(404).json({ message: "User not found." });
               }
               res.json(dbUserData);
           })
