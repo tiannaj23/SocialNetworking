@@ -108,7 +108,7 @@ const thoughtController = {
   // remove a reaction
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },https://files.slack.com/files-pri/T051264C0JV-F0565K9V4KC/tianna-social-snip.png
+      { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
