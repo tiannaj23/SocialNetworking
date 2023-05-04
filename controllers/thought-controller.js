@@ -80,9 +80,9 @@ const thoughtController = {
       })
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: 'Thought has been created but no user with this id!' });
+          return res.status(404).json({ message: "Thought has been created but no user with this id!" });
         }
-        res.json({ message: 'Thought has been deleted!' });
+        res.json({ message: "Thought deleted!" });
       })
       .catch((err) => {
         console.log(err);
@@ -90,10 +90,29 @@ const thoughtController = {
       });
   },
   // add a reaction
+  addReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+    .then((dbThoughtData) => {
+      if (!dbThoughtData) {
+        return res.status(404).json({ message: "Thought with this ID does not exist." });
+      }
+      res.json(dbThoughtData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+},
+};
+
   // delete a reaction
 
 
-}
+
 
 
 
