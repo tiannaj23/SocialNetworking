@@ -19,6 +19,7 @@ For someone who has a social media startup, it is an API for their social networ
 ## Installation
 - User should clone this repository from GitHub.
 - This application requires NoSQL, Express, MongoDB database, Mongoose, and Nodemon.
+- Run npm `i` to install dependencies.
 - Start the application by running nmp start.
 
 ## Usage
