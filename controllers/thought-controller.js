@@ -11,8 +11,7 @@ const thoughtController = {
         console.log(err);
         res.status(500).json(err);
       });
-  }, 
-
+  },
   // create a thought
   createThought(req, res) {
     Thought.create(req.body)
@@ -36,7 +35,6 @@ const thoughtController = {
     res.status(500).json(err);
     });
   },
-
   // get a single thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
@@ -51,7 +49,6 @@ const thoughtController = {
       res.status(500).json(err);
     });
   },
-  
   // update a thought
   updateThought(req, res) {
     Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $set: req.body }, { runValidators: true, new: true })
@@ -66,7 +63,6 @@ const thoughtController = {
       res.status(500).json(err);
     });
   },
-
   // delete a thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
@@ -91,7 +87,6 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
-
   // add a reaction
   addReaction(req, res) {
     Thought.findOneAndUpdate(
@@ -110,12 +105,10 @@ const thoughtController = {
         res.status(500).json(err);
       });
     },
-  };
-
   // remove a reaction
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },
+      { _id: req.params.thoughtId },https://files.slack.com/files-pri/T051264C0JV-F0565K9V4KC/tianna-social-snip.png
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
@@ -129,7 +122,8 @@ const thoughtController = {
         console.log(err);
         res.status(500).json(err);
       });
-    };
+    },
+  };
 
   
 
