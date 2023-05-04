@@ -12,6 +12,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   }, 
+
   // create a thought
   createThought(req, res) {
     Thought.create(req.body)
@@ -65,6 +66,7 @@ const thoughtController = {
       res.status(500).json(err);
     });
   },
+
   // delete a thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
@@ -89,6 +91,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
   // add a reaction
   addReaction(req, res) {
     Thought.findOneAndUpdate(
@@ -98,23 +101,36 @@ const thoughtController = {
     )
     .then((dbThoughtData) => {
       if (!dbThoughtData) {
-        return res.status(404).json({ message: "Thought with this ID does not exist." });
+        return res.status(404).json({ message: "User not found." });
       }
       res.json(dbThoughtData);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-},
-};
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+    },
+  };
 
-  // delete a reaction
+  // remove a reaction
+  removeReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          return res.status(404).json({ message: "Thought not found." });
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+    };
 
-
-
-
-
-
+  
 
 module.exports = thoughtController;
