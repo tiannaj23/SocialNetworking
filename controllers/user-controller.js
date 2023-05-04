@@ -25,7 +25,7 @@ const userController = {
       },
       // get a single user
       getSingleUser(req, res) {
-        User.findOne({_id: req.params.id})
+        User.findOne({_id: req.params.userId})
         .select('-__v')
         .populate('friends')
         .populate('thoughts')
@@ -42,7 +42,7 @@ const userController = {
       },
       // update a user
       updateUser(req, res) {
-        User.findOneAndUpdate({ _id: req.params.id }, {$set: req.body,}, { runValidators: true, new: true, })
+        User.findOneAndUpdate({ _id: req.params.userId }, {$set: req.body,}, { runValidators: true, new: true, })
         .then((dbUserData) => {
           if (!dbUserData) {
             res.status(404).json({message: "User not found."});
@@ -56,7 +56,7 @@ const userController = {
       },
       // delete a user and associated thoughts
       deleteUser(req, res) {
-        User.findOneAndDelete({_id: req.params.id})
+        User.findOneAndDelete({_id: req.params.userId})
         .then((dbUserData) => {
           if (!dbUserData) {
             return res.status(404).json({message: "User not found."});
@@ -75,7 +75,7 @@ const userController = {
       },
       // add a friend
       addFriend(req, res) {
-        User.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { friends: req.params.friendId } }, { new: true})
+        User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId } }, { new: true})
           .then((dbUserData) => {
             if (!dbUserData) {
               return res.status(404).json({ message: "User not found." });
